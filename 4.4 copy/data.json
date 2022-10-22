@@ -18,5 +18,13 @@
     {
         "term": "SAO",
         "definition": "Sword Art Online"
+    }, 
+    {
+        "term": "NHK",
+        "definition": "NHK, Nippon Hoso Kyokai (Japan Broadcasting Corporation), is Japan's only public broadcaster."
+    }, 
+    {
+        "term": "SOLID",
+        "definition": "S - Single-responsiblity principle O - Open-closed principle L - Liskov substitution principle I - Interface segregation principle D - Dependency Inversion Principle"
     }
 ]

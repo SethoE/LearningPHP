@@ -18,6 +18,7 @@
       // compare with data store
       if (authenticate_user($email, $password)) {
         $_SESSION['email'] = $email;
+        $_SESSION['password'] = $password;
         redirect('admin.php');
         die();
       } else {

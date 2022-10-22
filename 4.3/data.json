@@ -10,5 +10,13 @@
     {
         "term":"php",
         "definition":"php: hyptertext preprocessor"
+    }, 
+    {
+        "term": "OOP",
+        "definition": "Object oriented programming"
+    }, 
+    {
+        "term": "SAO",
+        "definition": "Sword Art Online"
     }
 ]
