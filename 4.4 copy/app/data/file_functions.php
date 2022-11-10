@@ -15,18 +15,20 @@ function get_term($term) {
         }
     }
 
-    return false;
+    return false; 
 }
 
 function search_terms($search) {
     $items = get_terms();
+    
     $results = array_filter($items, function($item) use($search) {
         // truthy
         // 1 - 12345 -1
         // 'asdfasfd'
         // falsey
         // 0 ''
-        if(strpos(strtolower($item->term), strtolower($search)) !== false) {
+        if(strpos(strtolower($item->term), strtolower($search)) !== false ||
+         strpos(strtolower($item->definition), strtolower($search)) !== false) {
             return $item;
         }
     });
