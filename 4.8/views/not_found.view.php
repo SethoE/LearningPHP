@@ -1,10 +1,3 @@
-<div class="container">
-    <div class="row">
-    <div class="col-lg-12 text-center">
-        <h1 class="mt-5">Not Found</h1>
-    </div>
-    </div>
-    <div class="row">
-        That doesn't exist.
-    </div>
+<div style="height: 100%; background-size: cover; background-position: center;" >
+    <img src="../../assets/img/404_anime.jpg" alt="404 page" >
 </div>
