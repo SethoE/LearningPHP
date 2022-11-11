@@ -1,0 +1,1 @@
+<h1 style="text-align: center; margin-top: 50px;" >This is the Admin Panel</h1>

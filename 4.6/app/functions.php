@@ -5,9 +5,7 @@ function redirect($url) {
     die();
 }
 
-
-
 function view($name, $model = '') {
     global $view_bag;
-    require("views/layout.view.php");
+    require(APP_PATH . "views/layout.view.php");
 }
