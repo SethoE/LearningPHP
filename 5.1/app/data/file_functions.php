@@ -1,6 +1,6 @@
 <?php
 
-require('glossaryterm.class.php');
+require_once('glossaryterm.class.php');
 function get_terms()
 {
     $json = get_data();
