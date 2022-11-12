@@ -10,7 +10,7 @@ class FileDataProvider
     {
         $this->file_path = $file_path;
     }
-    function get_terms()
+    public function get_terms()
     {
         $json = $this->get_data();
 

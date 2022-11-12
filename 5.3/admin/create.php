@@ -2,7 +2,6 @@
 session_start();
 
 require("../app/app.php");
-require("../app/auth_functions.php");
 ensure_user_is_authenticated();
 
 
@@ -14,7 +13,7 @@ if (is_post()) {
         if (empty($term) || empty($definition)) {
             // TODO: display error message
         } else {
-            add_term($term, $definition);
+            Data::addTerm($term, $definition);
             redirect('index.php');
         }
     }

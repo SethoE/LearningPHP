@@ -3,7 +3,6 @@
 session_start();
 
 require('app/app.php');
-require('app/auth_functions.php');
 
 if (is_user_authenticated()) {
     redirect('admin/');
@@ -31,8 +30,8 @@ if (is_post()) {
 
 }
 $view_bag = [
-    'title' => 'Login',
-    'heading_text' => 'Login page',
+    'title' => 'Admin login',
+    'heading_text' => 'This login page will allow to access your admin account and use your admin privileges.',
     'heading_value' => '',
     'status' => ''
 ];

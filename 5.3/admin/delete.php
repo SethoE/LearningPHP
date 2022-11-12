@@ -3,7 +3,6 @@
 session_start();
 
 require("../app/app.php");
-require("../app/auth_functions.php");
 ensure_user_is_authenticated();
 
 $view_bag = [
@@ -22,7 +21,7 @@ if (is_get()) {
         }
     }
 
-    $term = get_term($key);
+    $term = Data::getTerm($key);
 
     if ($term === false) {
         view('not_found');
@@ -38,7 +37,7 @@ if (is_post()) {
         if (empty($term)) {
             // TODO: display error message
         } else {
-            delete_term($term);
+            Data::deleteTerm($term);
             redirect('index.php');
         }
     }

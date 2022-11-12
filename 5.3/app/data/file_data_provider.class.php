@@ -10,7 +10,7 @@ class FileDataProvider
     {
         $this->file_path = $file_path;
     }
-    function get_terms()
+    public function get_terms()
     {
         $json = $this->get_data();
 
@@ -54,7 +54,7 @@ class FileDataProvider
     {
         $items = $this->get_terms();
         $items[] = new GlossaryTerm($term, $definition);
-        set_data($items);
+        $this->set_data($items);
     }
 
     public function update_term($original_term, $new_term, $new_definition)

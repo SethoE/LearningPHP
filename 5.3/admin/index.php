@@ -3,7 +3,6 @@
 session_start();
 
 require("../app/app.php");
-require("../app/auth_functions.php");
 ensure_user_is_authenticated();
 
 $view_bag = [
@@ -12,4 +11,4 @@ $view_bag = [
 ];
 
 
-view('admin/index', get_terms());
+view('admin/index', Data::getTerms());
