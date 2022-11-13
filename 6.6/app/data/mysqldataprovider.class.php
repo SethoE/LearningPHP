@@ -4,8 +4,9 @@
 class MySQLDataProvider extends DataProvider
 {
     private $tablename = 'terms';
-    
-    private function connect() {
+
+    private function connect()
+    {
         try {
             return new PDO($this->source, CONFIG['DB_username'], CONFIG['DB_password']);
         } catch (PDOException $e) {
@@ -18,7 +19,7 @@ class MySQLDataProvider extends DataProvider
 
         if ($db == null) {
             return [];
-         }
+        }
         $query = $db->query("SELECT * FROM " . $this->tablename);
 
         $data = $query->fetchAll(PDO::FETCH_CLASS, 'GlossaryTerm');
@@ -35,28 +36,52 @@ class MySQLDataProvider extends DataProvider
 
         if ($db === null) {
             return;
-         }
+        }
 
-         $query = "SELECT * FROM " . $this->tablename . " WHERE term_id = :id";
-         $smt = $db->prepare($query);
+        $query = "SELECT * FROM " . $this->tablename . " WHERE term_id = :id";
+        $smt = $db->prepare($query);
 
-         $smt->execute([
-                ":id" => $id,
-            ]);
+        $smt->execute([
+            ":id" => $id,
+        ]);
 
         $data = $smt->fetchAll(PDO::FETCH_CLASS, 'GlossaryTerm');
 
-        if(empty($data)) {
-            return;
-        }
         $smt = null;
         $db = null;
+
+        if (empty($data)) {
+            return;
+        }
 
         return $data[0];
     }
 
     public function search_terms($search)
     {
+        $db = $this->connect();
+
+        if ($db === null) {
+            return [];
+        }
+
+        $query = "SELECT * FROM " . $this->tablename . " WHERE term LIKE :search OR definition LIKE :search";
+        $smt = $db->prepare($query);
+
+        $smt->execute([
+            ":search" => '%' . $search . '%',
+        ]);
+
+        $data = $smt->fetchAll(PDO::FETCH_CLASS, 'GlossaryTerm');
+
+        $smt = null;
+        $db = null;
+
+        if (empty($data)) {
+            return [];
+        }
+
+        return $data;
     }
 
     public function add_term($term, $definition)
@@ -65,15 +90,15 @@ class MySQLDataProvider extends DataProvider
 
         if ($db === null) {
             return;
-         }
+        }
 
-         $query = 'INSERT INTO ' . $this->tablename . ' (term, definition) ' . ' VALUES(:term, :definition)';
-         $smt = $db->prepare($query);
+        $query = 'INSERT INTO ' . $this->tablename . ' (term, definition) ' . ' VALUES(:term, :definition)';
+        $smt = $db->prepare($query);
 
-         $smt->execute([
-                ":term" => $term,
-                ":definition" => $definition
-            ]);
+        $smt->execute([
+            ":term" => $term,
+            ":definition" => $definition
+        ]);
 
         $smt = null;
         $db = null;
