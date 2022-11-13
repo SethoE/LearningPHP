@@ -3,6 +3,7 @@
 
 class MySQLDataProvider extends DataProvider
 {
+    private $tablename = 'terms';
     
     private function connect() {
         try {
@@ -25,6 +26,22 @@ class MySQLDataProvider extends DataProvider
 
     public function add_term($term, $definition)
     {
+        $db = $this->connect();
+
+        if ($db === null) {
+            return;
+         }
+
+         $query = 'INSERT INTO ' . $this->tablename . ' (term, definition) ' . ' VALUES(:term, :definition)';
+         $smt = $db->prepare($query);
+
+         $smt->execute([
+                ":term" => $term,
+                ":definition" => $definition
+            ]);
+
+        $smt = null;
+        $db = null;
     }
 
     public function update_term($original_term, $new_term, $new_definition)
