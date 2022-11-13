@@ -106,10 +106,44 @@ class MySQLDataProvider extends DataProvider
 
     public function update_term($original_term, $new_term, $new_definition)
     {
+        $db = $this->connect();
+
+        if ($db == null) {
+            return;
+        }
+
+        $query = "UPDATE " . $this->tablename . " SET term = :new_term, definition = :new_definition WHERE term_id = :original_term";
+
+        $smt = $db->prepare($query);
+
+        $smt->execute([
+            ":new_term" => $new_term,
+            ":new_definition" => $new_definition,
+            ":original_term" => $original_term
+        ]);
+
+        $smt = null;
+        $db = null;
     }
 
-    public function delete_term($term)
+    public function delete_term($id)
     {
+        $db = $this->connect();
+
+        if ($db == null) {
+            return;
+        }
+
+        $query = "DELETE FROM " . $this->tablename . " WHERE term_id = :id";
+
+        $smt = $db->prepare($query);
+
+        $smt->execute([
+            ":id" => $id, 
+        ]);
+
+        $smt = null;
+        $db = null;
     }
 
 }

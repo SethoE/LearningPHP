@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         <form action="" method="POST">
-            <input type="hidden" name="term" value="<?= $model->term ?>">
+            <input type="hidden" name="term" value="<?= $model->term_id ?>">
             <div class="form-group">
                 <button type="submit">Delete</button>
             </div>

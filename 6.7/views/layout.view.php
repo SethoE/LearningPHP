@@ -12,11 +12,11 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 86px;">
       <div class="container">
-        <a class="navbar-brand" href="/LearningPHP/6.6/">PHP Fundamentals: <?= $view_bag['title']; ?></a>
+        <a class="navbar-brand" href="/LearningPHP/6.7/">PHP Fundamentals: <?= $view_bag['title']; ?></a>
         <?php if (is_user_authenticated() === false): ?>
-          <a class="navbar-brand" href="/LearningPHP/6.6/login.php">Login</a>
+          <a class="navbar-brand" href="/LearningPHP/6.7/login.php">Login</a>
         <?php else: ?>
-          <a class="navbar-brand" href="/LearningPHP/6.6/logout.php">Logout</a>
+          <a class="navbar-brand" href="/LearningPHP/6.7/logout.php">Logout</a>
         <?php endif ?>
       </div>
     </nav>

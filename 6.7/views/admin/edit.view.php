@@ -9,7 +9,7 @@
 
     <div class="row">
         <form action="" method="POST">
-            <input type="hidden" name="original-term" value="<?= $model->term?>">
+            <input type="hidden" name="original-term" value="<?= $model->term_id?>">
             <div class="form-group">
                 <label for="term">Term:</label>
                 <input class="form-control" type="text" name="term" id="term" value="<?= $model->term?>">
