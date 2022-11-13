@@ -13,21 +13,65 @@ class MySQLDataProvider extends DataProvider
             return null;
         }
     }
-    public function get_terms()
+
+    private function mysqlQuery($query, $parameterArray = [])
     {
+
         $db = $this->connect();
 
         if ($db == null) {
             return [];
         }
-        $query = $db->query("SELECT * FROM " . $this->tablename);
+        $smt = null;
 
-        $data = $query->fetchAll(PDO::FETCH_CLASS, 'GlossaryTerm');
+        if (empty($parameterArray)) {
+            $smt = $db->query($query);
 
-        $query = null;
+        } else {
+            $smt = $db->prepare($query);
+            $smt->execute($parameterArray);
+
+        }
+        $data = $smt->fetchAll(PDO::FETCH_CLASS, 'GlossaryTerm');
+
+        if (empty($data)) {
+            return [];
+        }
+        $smt = null;
         $db = null;
 
         return $data;
+    }
+
+    private function mysqlExecute($query, $parameterArray)
+    {
+        $db = $this->connect();
+
+        if ($db === null) {
+            return;
+        }
+
+        $smt = $db->prepare($query);
+        $smt->execute($parameterArray);
+
+        $smt = null;
+        $db = null;
+    }
+
+
+    public function get_terms()
+    {
+        return $this->mysqlQuery("SELECT * FROM " . $this->tablename);
+    }
+
+    public function search_terms($search)
+    {
+        $query = "SELECT * FROM " . $this->tablename . " WHERE term LIKE :search OR definition LIKE :search";
+        $parameterArray = [
+            ":search" => '%' . $search . '%',
+        ];
+        return $this->mysqlQuery($query, $parameterArray);
+
     }
 
     public function get_term($id)
@@ -57,93 +101,41 @@ class MySQLDataProvider extends DataProvider
         return $data[0];
     }
 
-    public function search_terms($search)
-    {
-        $db = $this->connect();
-
-        if ($db === null) {
-            return [];
-        }
-
-        $query = "SELECT * FROM " . $this->tablename . " WHERE term LIKE :search OR definition LIKE :search";
-        $smt = $db->prepare($query);
-
-        $smt->execute([
-            ":search" => '%' . $search . '%',
-        ]);
-
-        $data = $smt->fetchAll(PDO::FETCH_CLASS, 'GlossaryTerm');
-
-        $smt = null;
-        $db = null;
-
-        if (empty($data)) {
-            return [];
-        }
-
-        return $data;
-    }
-
     public function add_term($term, $definition)
     {
-        $db = $this->connect();
-
-        if ($db === null) {
-            return;
-        }
 
         $query = 'INSERT INTO ' . $this->tablename . ' (term, definition) ' . ' VALUES(:term, :definition)';
-        $smt = $db->prepare($query);
-
-        $smt->execute([
+        $parameterArray = [
             ":term" => $term,
             ":definition" => $definition
-        ]);
+        ];
 
-        $smt = null;
-        $db = null;
+        $this->mysqlExecute($query, $parameterArray);
     }
 
     public function update_term($original_term, $new_term, $new_definition)
     {
-        $db = $this->connect();
-
-        if ($db == null) {
-            return;
-        }
 
         $query = "UPDATE " . $this->tablename . " SET term = :new_term, definition = :new_definition WHERE term_id = :original_term";
-
-        $smt = $db->prepare($query);
-
-        $smt->execute([
+        $parameterArray = [
             ":new_term" => $new_term,
             ":new_definition" => $new_definition,
             ":original_term" => $original_term
-        ]);
+        ];
 
-        $smt = null;
-        $db = null;
+        $this->mysqlExecute($query, $parameterArray);
     }
 
     public function delete_term($id)
     {
-        $db = $this->connect();
-
-        if ($db == null) {
-            return;
-        }
-
         $query = "DELETE FROM " . $this->tablename . " WHERE term_id = :id";
+        $parameterArray = [
+            ":id" => $id,
+        ];
 
-        $smt = $db->prepare($query);
-
-        $smt->execute([
-            ":id" => $id, 
-        ]);
-
-        $smt = null;
-        $db = null;
+        $this->mysqlExecute($query, $parameterArray);
     }
+
+
 
 }
