@@ -10,13 +10,13 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 86px;">
       <div class="container">
-        <a class="navbar-brand" href="/LearningPHP/6.4/">PHP Fundamentals: <?= $view_bag['title']; ?></a>
+        <a class="navbar-brand" href="/LearningPHP/6.5/">PHP Fundamentals: <?= $view_bag['title']; ?></a>
         <?php if (is_user_authenticated() === false): ?>
-          <a class="navbar-brand" href="/LearningPHP/6.4/login.php">Login</a>
+          <a class="navbar-brand" href="/LearningPHP/6.5/login.php">Login</a>
         <?php else: ?>
-          <a class="navbar-brand" href="/LearningPHP/6.4/logout.php">Logout</a>
+          <a class="navbar-brand" href="/LearningPHP/6.5/logout.php">Logout</a>
         <?php endif ?>
       </div>
     </nav>
