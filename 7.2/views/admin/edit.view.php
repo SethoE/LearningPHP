@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 class="mt-5"> 
+                <?= $view_bag['heading_text'] ?>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <form action="" method="POST">
+            <input type="hidden" name="original-term" value="<?= $model->term_id?>">
+            <div class="form-group">
+                <label for="term">Term:</label>
+                <input class="form-control" type="text" name="term" id="term" value="<?= $model->term?>">
+            </div>
+            <div class="form-group">
+                <label for="definition">Definition:</label>
+                <textarea class="form-control" name="definition" id="definition"><?= $model->definition?></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
