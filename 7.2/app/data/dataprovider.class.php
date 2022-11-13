@@ -4,9 +4,8 @@ require("glossaryterm.class.php");
 
 class DataProvider
 {
-    function __construct($source)
+    function __construct(public $source)
     {
-        $this->source = $source;
     }
     public function get_terms()
     {

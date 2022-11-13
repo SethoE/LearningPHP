@@ -8,7 +8,6 @@ $view_bag = [
     'heading_value' => ''
 ];
 
-$items = [];
 if (isset($_GET['search']) and $_GET['search'] != '') {
     $items = Data::searchTerms($_GET['search']);
     $view_bag['heading_text'] = 'Search Results for: ';
@@ -16,5 +15,6 @@ if (isset($_GET['search']) and $_GET['search'] != '') {
 } else {
     $items = Data::getTerms();
 }
+
 
 view(name:'index', model: $items);
