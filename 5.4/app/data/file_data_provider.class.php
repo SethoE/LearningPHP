@@ -1,15 +1,7 @@
 <?php
 
-require("glossaryterm.class.php");
-
-class FileDataProvider
+class FileDataProvider extends DataProvider
 {
-
-
-    public function __construct($file_path)
-    {
-        $this->file_path = $file_path;
-    }
     public function get_terms()
     {
         $json = $this->get_data();
@@ -76,7 +68,7 @@ class FileDataProvider
 
         $json = json_encode($arr);
 
-        file_put_contents($this->file_path, $json);
+        file_put_contents($this->source, $json);
     }
 
     public function delete_term($term)
@@ -102,10 +94,10 @@ class FileDataProvider
 
         $json = '';
 
-        if (!file_exists($this->file_path)) {
-            file_put_contents($this->file_path, '');
+        if (!file_exists($this->source)) {
+            file_put_contents($this->source, '');
         } else {
-            $json = file_get_contents($this->file_path);
+            $json = file_get_contents($this->source);
         }
 
 
